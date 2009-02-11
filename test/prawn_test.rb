@@ -20,13 +20,13 @@ class PrawnTest < Test::Unit::TestCase
       end
       
       should "compute the column width" do
-        assert_equal(, @pdf.column_width)
+        assert_equal(@pdf.bounds.width, @pdf.grid.column_width * @num_columns.to_f + @gutter * (@num_columns - 1).to_f)
       end
       
-      # should "compute the row height" do
-      #   assert_equal(expected, @pdf.row_height)
-      # end
-      # 
+      should "compute the row height" do
+        assert_equal(@pdf.bounds.height, @pdf.grid.row_height * @num_rows.to_f + @gutter * (@num_rows - 1).to_f)
+      end
+      
       # should "give the edges of a grid box" do
       #   assert_equal(expected, @pdf.grid(1,4).top_left)
       #   assert_equal(expected, @pdf.grid(1,4).top_right)

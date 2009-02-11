@@ -17,7 +17,7 @@ module Prawn::Gridable
   end
   
   class Grid
-    attr_reader :columns, :rows, :gutter
+    attr_reader :pdf, :columns, :rows, :gutter
     
     def initialize(pdf, options = {})
       Prawn.verify_options([:columns, :rows, :gutter], options)
@@ -26,6 +26,19 @@ module Prawn::Gridable
       @columns = options[:columns]
       @rows = options[:rows]
       @gutter = options[:gutter]
+    end
+
+    def column_width
+      subdivide(pdf.bounds.width, columns)
+    end
+    
+    def row_height
+      subdivide(pdf.bounds.height, rows)
+    end
+
+    private
+    def subdivide(total, num)
+      (total.to_f - (gutter.to_f * (num - 1).to_f)) / num.to_f
     end
   end
   
