@@ -51,13 +51,10 @@ module Prawn::Gridable
   end
   
   class Box
-    attr_reader :width, :height
+    attr_reader :pdf
     
-    def initialize(total_height, width, height, gutter, i, j)
-      @total_height = total_height
-      @width = width.to_f
-      @height = height.to_f
-      @gutter = gutter.to_f
+    def initialize(pdf, i, j)
+      @pdf = pdf
       @i = i
       @j = j
     end
@@ -67,25 +64,49 @@ module Prawn::Gridable
     end
     
     def top_left
-      @top_left ||= [((@width + @gutter) * @j.to_f), @total_height - ((@height + @gutter) * @i.to_f)]
+      @top_left ||= [((width + gutter) * @j.to_f), total_height - ((height + gutter) * @i.to_f)]
     end
     
     def top_right
-      @top_right ||= [top_left[0] + @width, top_left[1]]
+      @top_right ||= [top_left[0] + width, top_left[1]]
     end
     
     def bottom_left
-      @bottom_left ||= [top_left[0], top_left[1] - @height]
+      @bottom_left ||= [top_left[0], top_left[1] - height]
     end
     
     def bottom_right
-      @bottom_right ||= [top_left[0] + @width, top_left[1] - @height]
+      @bottom_right ||= [top_left[0] + width, top_left[1] - height]
+    end
+    
+    def total_height
+      pdf.bounds.height.to_f
+    end
+    
+    def grid
+      pdf.grid
+    end
+    
+    def width
+      grid.column_width.to_f
+    end
+    
+    def height
+      grid.row_height.to_f
+    end
+    
+    def gutter
+      grid.gutter.to_f
+    end
+    
+    def bounding_box(&blk)
+      pdf.bounding_box(top_left, :width => width, :height => height, &blk)
     end
   end
   
   private
   def single_box(i, j)
-    Box.new(self.bounds.height, self.grid.column_width, self.grid.row_height, self.grid.gutter, i, j)
+    Box.new(self, i, j)
   end
 end
 
