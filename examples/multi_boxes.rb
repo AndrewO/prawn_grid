@@ -7,7 +7,7 @@ Prawn::Document.generate(File.join(File.dirname(__FILE__), 'multi_boxes.pdf')#,
     # :top_margin => 0,
     # :bottom_margin => 0
   ) do |p|
-  p.define_grid(:columns => 5, :rows => 8, :gutter => 10)
+  p.define_grid(:columns => 5, :rows => 12, :gutter => 10)
   
   p.grid.rows.times do |i|
     p.grid.columns.times do |j|
