@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require File.join(File.dirname(__FILE__), '..', 'lib', 'prawn_grid')
 
-Prawn::Document.generate(File.join(File.dirname(__FILE__), 'grid.pdf')#, 
+Prawn::Document.generate(File.join(File.dirname(__FILE__), 'bounding_box_grid.pdf')#, 
     # :left_margin => 0,
     # :right_margin => 0,
     # :top_margin => 0,
