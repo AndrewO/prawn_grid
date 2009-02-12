@@ -67,7 +67,7 @@ module Prawn::Gridable
     end
     
     def top_left
-      @top_left ||= [((@width + @gutter) * @i.to_f), @total_height - ((@height + @gutter) * @j.to_f)]
+      @top_left ||= [((@width + @gutter) * @j.to_f), @total_height - ((@height + @gutter) * @i.to_f)]
     end
     
     def top_right

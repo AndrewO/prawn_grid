@@ -15,7 +15,7 @@ class PrawnTest < Test::Unit::TestCase
       setup do
         @num_columns = 5
         @num_rows = 8
-        @gutter = 0.1
+        @gutter = 10.0
         @pdf.define_grid(:columns => @num_columns, :rows => @num_rows, :gutter => @gutter)
       end
       
@@ -28,23 +28,16 @@ class PrawnTest < Test::Unit::TestCase
       end
       
       should "give the edges of a grid box" do
-        grid_width = @pdf.bounds.width.to_f / @num_columns.to_f
-        grid_height = @pdf.bounds.height.to_f / @num_rows.to_f
+        grid_width = (@pdf.bounds.width.to_f - (@gutter * (@num_columns - 1).to_f )) / @num_columns.to_f
+        grid_height = (@pdf.bounds.height.to_f - (@gutter * (@num_rows - 1).to_f ))/ @num_rows.to_f
         
-        exp_tl_x = grid_width + @gutter.to_f
-        exp_tl_y = (grid_height + @gutter.to_f) * 4.0
+        exp_tl_x = (grid_width + @gutter.to_f) * 4.0
+        exp_tl_y = @pdf.bounds.height.to_f - (grid_height + @gutter.to_f)
 
-        # TODO: Find out where the delta is coming from
-        # assert_equal([exp_tl_x, exp_tl_y], @pdf.grid(1,4).top_left)
-        # assert_equal([exp_tl_x + grid_width, exp_tl_y], @pdf.grid(1,4).top_right)
-        # assert_equal([exp_tl_x, exp_tl_y + grid_height], @pdf.grid(1,4).bottom_left)
-        # assert_equal([exp_tl_x + grid_width, exp_tl_y + grid_height], @pdf.grid(1,4).bottom_left)
-
-        assert_equal([exp_tl_x, exp_tl_y].map {|i| i.round}, @pdf.grid(1,4).top_left.map {|i| i.round})
-        assert_equal([exp_tl_x + grid_width, exp_tl_y].map {|i| i.round}, @pdf.grid(1,4).top_right.map {|i| i.round})
-        assert_equal([exp_tl_x, exp_tl_y + grid_height].map {|i| i.round}, @pdf.grid(1,4).bottom_left.map {|i| i.round})
-        assert_equal([exp_tl_x + grid_width, exp_tl_y + grid_height].map {|i| i.round}, @pdf.grid(1,4).bottom_left.map {|i| i.round})
-
+        assert_equal([exp_tl_x, exp_tl_y], @pdf.grid(1,4).top_left)
+        assert_equal([exp_tl_x + grid_width, exp_tl_y], @pdf.grid(1,4).top_right)
+        assert_equal([exp_tl_x, exp_tl_y - grid_height], @pdf.grid(1,4).bottom_left)
+        assert_equal([exp_tl_x + grid_width, exp_tl_y - grid_height], @pdf.grid(1,4).bottom_right)
       end
 
       # should "give the edges of a multiple grid boxes" do
