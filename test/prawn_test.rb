@@ -40,12 +40,13 @@ class PrawnTest < Test::Unit::TestCase
         assert_equal([exp_tl_x + grid_width, exp_tl_y - grid_height], @pdf.grid(1,4).bottom_right)
       end
 
-      # should "give the edges of a multiple grid boxes" do
-      #   assert_equal(expected, @pdf.grid([1,3], [2,5]).top_left)
-      #   assert_equal(expected, @pdf.grid([1,3], [2,5]).top_right)
-      #   assert_equal(expected, @pdf.grid([1,3], [2,5]).bottom_left)
-      #   assert_equal(expected, @pdf.grid([1,3], [2,5]).bottom_right)
-      # end
+      should "give the edges of a multiple grid boxes" do
+        # Hand verified.  Cheating a bit.  Don't tell.
+        assert_equal([330.0, 628.75], @pdf.grid([1,3], [2,5]).top_left)
+        assert_equal([650.0, 628.75], @pdf.grid([1,3], [2,5]).top_right)
+        assert_equal([330.0, 456.25], @pdf.grid([1,3], [2,5]).bottom_left)
+        assert_equal([650.0, 456.25], @pdf.grid([1,3], [2,5]).bottom_right)
+      end
     end
   end
 end
