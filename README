@@ -1,1 +1,14 @@
 Prawn Grid
+
+Prawn Grid is a small library to aid programmers who wish to make professional looking PDFs using a Grid layout system [1].  By defining the number of rows and columns as well as the gutter width between boxes, one can easily create bounding boxes in a pleasing visual rhythm.
+
+It may be helpful to know that all of the corners of the boxes are available as coordinates for use aside from the standard bounding boxing.  In fact, all the library is doing is outputing sets of coordinates to Prawn which does the real heavy lifting.
+
+The examples provided show complete use-cases of the library.  multi_boxes is probably the best all-round example and show_grid is useful for showing how to quickly show all grids as a diagnostic.
+
+This is an early release.  Future releases will include a cleaned up API that will make it so you don't have to hard-code grid reference numbers (to make it easier to modify existing layouts) as well as other improvements under-the-covers.
+
+Github: http://github.com/AndrewO/prawn_grid/tree/master
+
+[1] http://en.wikipedia.org/wiki/Grid_(page_layout)
+
