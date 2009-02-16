@@ -7,7 +7,7 @@ Prawn::Document.generate(File.join(File.dirname(__FILE__), 'multi_boxes.pdf')#,
     # :top_margin => 0,
     # :bottom_margin => 0
   ) do |p|
-  p.define_grid(:columns => 5, :rows => 12, :gutter => 10)
+  p.define_grid(:columns => 5, :rows => 8, :gutter => 10)
   
   p.grid.rows.times do |i|
     p.grid.columns.times do |j|
@@ -48,7 +48,7 @@ Prawn::Document.generate(File.join(File.dirname(__FILE__), 'multi_boxes.pdf')#,
     end
   end
 
-  g = p.grid([5,3], [4,4])
+  g = p.grid([5,], [4,0])
   g.bounding_box do
     p.text g.name
     p.stroke_color = "333333"
