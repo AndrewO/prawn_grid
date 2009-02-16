@@ -44,6 +44,14 @@ module Prawn::Gridable
      @row_height ||= subdivide(pdf.bounds.height, rows)
     end
 
+    def show_all(color = "CCCCCC")
+      self.rows.times do |i|
+        self.columns.times do |j|
+          pdf.grid(i,j).show(color)
+        end
+      end
+    end
+
     private
     def subdivide(total, num)
       (total.to_f - (gutter * (num - 1).to_f)) / num.to_f
@@ -113,6 +121,14 @@ module Prawn::Gridable
     
     def bounding_box(&blk)
       pdf.bounding_box(top_left, :width => width, :height => height, &blk)
+    end
+    
+    def show(grid_color = "CCCCCC")
+      self.bounding_box do
+        pdf.stroke_color = grid_color
+        pdf.text self.name
+        pdf.stroke_bounds
+      end
     end
     
     private
