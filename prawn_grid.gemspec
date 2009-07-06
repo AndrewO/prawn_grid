@@ -1,3 +1,5 @@
+PRAWN_GRID_VERSION = '0.4.1'
+
 Gem::Specification.new do |s|
   s.name = "prawn_grid"
   s.version = PRAWN_GRID_VERSION
